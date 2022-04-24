@@ -1,0 +1,53 @@
+group 'com.xcharge.gradle'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java' //  应用一个插件，是在project上的一个方法
+apply plugin: 'war' //官网中查找 用来打war包
+
+sourceCompatibility = 1.8
+
+// 仓库 - 告诉project去哪个仓库找所依赖的jar包
+repositories {
+    mavenCentral() // 从公网拉取
+}
+
+configurations.all {
+    resolutionStrategy{
+        failOnVersionConflict()
+        force "org.slf4j:slf4j-api:1.7.25"
+    }
+}
+
+// 用来声明这个project依赖于哪些jar包或依赖的项目
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+    implementation 'org.hibernate:hibernate-core:3.6.3.Final'
+}
+
+// task : 用来创建任务
+
+// 创建一个闭包 - 判断当前文件是否存在，不存在则新建这些文件
+def createDir = {
+    path ->
+        File dir = new File(path);
+        if (!dir.exists()) {
+            dir.mkdirs()
+        }
+}
+// 创建java工程目录
+task makeJavaDir() {
+    def paths = ['src/main/java', 'src/main/resources', 'src/test/java', 'src/test/resources'];
+    doFirst {
+        paths.forEach(createDir);
+    }
+}
+
+// 创建web工程目录
+task makWebDir() {
+    dependsOn 'makeJavaDir' // 该任务依赖于makeJavaDir这个任务
+    def paths = ['src/main/webapp', 'src/test/webapp']
+    doLast {
+        paths.forEach(createDir);
+    }
+}

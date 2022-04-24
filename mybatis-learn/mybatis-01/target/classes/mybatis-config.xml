@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!--configuration核心配置文件-->
+<configuration>
+    <properties resource="db.properties"/>
+    <typeAliases>
+        <typeAlias type="com.kuang.pojo.User" alias="User"></typeAlias>
+    </typeAliases>
+    <!--  环境集合 -->
+    <environments default="development">
+        <environment id="development">
+            <!-- 事务管理 -->
+            <transactionManager type="JDBC"/>
+            <!-- 数据库配置 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url"
+                          value="jdbc:mysql://localhost:3306/mybatis?useSSL=true&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="jj19910626"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--  每个Mapper的xml配置文件，必须mybatis这里注册  -->
+    <mappers>
+        <mapper resource="com/kuang/dao/UserMapper.xml"></mapper>
+    </mappers>
+</configuration>

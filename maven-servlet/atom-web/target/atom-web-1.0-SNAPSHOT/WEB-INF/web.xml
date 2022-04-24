@@ -1,0 +1,67 @@
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+    <display-name>Archetype Created Web Application</display-name>
+
+    <!--  设置servletContext的默认值  -->
+    <context-param>
+        <param-name>url</param-name>
+        <param-value>jdbc:mysql://localhost:3306/mybatis</param-value>
+    </context-param>
+
+    <filter>
+        <filter-name>characterEncodingFilter</filter-name>
+        <filter-class>com.atom.filter.characterEncodingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>characterEncodingFilter</filter-name>
+        <url-pattern>/filter/*</url-pattern>
+    </filter-mapping>
+
+    <!-- 映射jar包到web浏览器 -->
+    <servlet>
+        <servlet-name>hello</servlet-name>
+        <servlet-class>com.atom.servlet.HelloServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>helloFilter</servlet-name>
+        <servlet-class>com.atom.servlet.HelloServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>dis</servlet-name>
+        <servlet-class>com.atom.servlet.Dispatcher</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>prop</servlet-name>
+        <servlet-class>com.atom.servlet.GetProperties</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>down</servlet-name>
+        <servlet-class>com.atom.servlet.Download</servlet-class>
+    </servlet>
+
+    <!--  通过url匹配servlet的名字  -->
+    <servlet-mapping>
+        <servlet-name>hello</servlet-name>
+        <url-pattern>/hello</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>helloFilter</servlet-name>
+        <url-pattern>/filter/hello</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>dis</servlet-name>
+        <url-pattern>/dis</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>prop</servlet-name>
+        <url-pattern>/prop</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>down</servlet-name>
+        <url-pattern>/down</url-pattern>
+    </servlet-mapping>
+
+</web-app>
